@@ -1,0 +1,44 @@
+---
+title: Data Import
+author: Charlotte Wickham
+---
+
+```{r setup, message = FALSE}
+library(tidyverse)
+```
+
+## Cut and paste method
+
+*We'll start by talking about this approach.*
+
+Read in the data for three sites:
+```{r}
+gslook <- read_csv("data/GSLOOK.csv")
+gsmack <- read_csv("data/GSMACK.csv")
+gsws01 <- read_csv("data/GSWS01.csv")
+
+# then figure out how to join them altogether,
+# or keep repeating operations once for each site.
+```
+
+## Iteration method
+
+*By the end of class, we'll have figured out, and will fix this approach.*
+
+```{r}
+streams <- tibble(
+  file = c("data/GSLOOK.csv", "data/GSMACK.csv", "data/GSWS01.csv")
+)
+```
+
+> For each row, apply `read_csv()` to the element inside of  `file`. Store the result in the `data` column.
+
+```{r}
+streams %>% 
+  rowwise() %>% 
+  mutate(data = read_csv(file))
+```
+
+
+
+
